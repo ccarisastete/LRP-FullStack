@@ -17,7 +17,7 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { login } = useAuth();
+  const { login, setError } = useAuth();
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -26,8 +26,10 @@ export const Login = () => {
         login(response.token, response.user);
       }
     } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      alert('Error al iniciar sesión. Verifica tus credenciales.');
+      setError({
+        message: 'Credenciales incorrectas',
+        type: 'error'
+      })
     }
   };
 
